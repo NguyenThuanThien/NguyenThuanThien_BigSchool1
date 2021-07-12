@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace NguyenThuanThien_BigSchool.Models
@@ -79,6 +80,10 @@ namespace NguyenThuanThien_BigSchool.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(255)]
+        public String name { get; set;}
     }
 
     public class ResetPasswordViewModel
