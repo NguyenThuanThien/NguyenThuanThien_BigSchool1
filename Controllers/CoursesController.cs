@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using NguyenThuanThien_BigSchool.Models;
 using NguyenThuanThien_BigSchool.ViewModels;
+using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -49,6 +50,26 @@ namespace NguyenThuanThien_BigSchool.Controllers
             _dbConText.SaveChanges();
 
             return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult Attending ()
+        {
+            var userId = User.Identity.GetUserId();
+
+            var courses = _dbConText.Attendances
+                .Where(a => a.AttendeeId == userId)
+                .Select(a => a.Course)
+                .Include(l => l.Lecturer)
+                .Include(l => l.Category)
+                .ToList();
+
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = courses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
     }
     

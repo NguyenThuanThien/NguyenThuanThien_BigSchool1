@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Web.Mvc;
 using System.Data.Entity;
+using NguyenThuanThien_BigSchool.ViewModels;
+
 namespace NguyenThuanThien_BigSchool.Controllers
 {
     public class HomeController : Controller
@@ -20,7 +22,12 @@ namespace NguyenThuanThien_BigSchool.Controllers
                 .Include(c => c.Category)
                 .Where(c => c.DateTime > DateTime.Now);
 
-            return View(upcomingCourses);
+            var viewModel = new CoursesViewModel
+            {
+                UpcommingCourses = upcomingCourses,
+                ShowAction = User.Identity.IsAuthenticated
+            };
+            return View(viewModel);
         }
 
 
