@@ -20,6 +20,9 @@ namespace NguyenThuanThien_BigSchool.Controllers
         public IHttpActionResult Follow(FollowingDto followingDto)
         {
             var userId = User.Identity.GetUserId();
+
+            if (_dbContext.Followings.Any(f => f.FolloweeId == userId))
+                return BadRequest("Bạn không thể tự theo dõi chính mình");
             if (_dbContext.Followings.Any(f => f.FollowerId == userId && f.FolloweeId == followingDto.FolloweeId))
                 return BadRequest("Following already exitst");
 

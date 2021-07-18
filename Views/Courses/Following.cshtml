@@ -1,0 +1,44 @@
+﻿@using Microsoft.AspNet.Identity;
+@model NguyenThuanThien_BigSchool.ViewModels.FollowingViewModels
+@{
+    ViewBag.Title = "Following";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Following</h2>
+
+<div class="row">
+    <ul style="list-style-type:none">
+        @foreach (var item in Model.Followings)
+        {
+            <li id="@item.Id">
+                <div>
+                    <span>
+                        @item.name
+                    </span>
+                    <a role="button" class=" btn btn-success btn-sm  btn-link" onclick="unfolow('@item.Id')">Bỏ theo dõi</a>
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+
+<script>
+    function unfolow(followeeId) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Unfollow", "Courses")',
+            data: { followeeId: followeeId },
+            success: function (data) {
+                console.log("Success");
+                var x = "#" + followeeId;
+                $(x).remove();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log("Error: " + thrownError);
+            }
+        });
+    }
+
+</script>

@@ -33,21 +33,37 @@ textarea {
     color: white;
 }
 .course {
-    list-style :none;
+    list-style: none;
 }
-.course > li {
-    position : relative;
-    margin-bottom: 30px;
-}
-.course > li .date {
-    text-align : center;
-    background-color: #ff6a00;
-    color: white;
-    width: 60px;
-    border-radius: 8px;
-}
-.course > li .detail {
-    position: absolute;
-    top: 0;
-    left: 70px;
-}
+
+    .course > li {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+        .course > li > .date {
+            text-align: center;
+            background-color: #d41d50;
+            color: white;
+            width: 60px;
+            border-radius: 8px;
+        }
+
+        .course > li > .details {
+            position: absolute;
+            top: 0px;
+            left: 70px;
+            display: grid;
+        }
+
+
+        /* action */
+        .course > li .action {
+            display: none;
+            left: 70px;
+            position: absolute;
+        }
+
+        .course > li:hover .action {
+            display: block;
+        }

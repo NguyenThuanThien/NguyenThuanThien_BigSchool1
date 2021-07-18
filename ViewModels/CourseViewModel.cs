@@ -2,13 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace NguyenThuanThien_BigSchool.ViewModels
 {
     public class CourseViewModel
     {
+        public int Id { get; set; }
+
         [Required]
         public string Place { get; set; }
 
@@ -21,9 +21,16 @@ namespace NguyenThuanThien_BigSchool.ViewModels
         [ValidTime]
         public string Time { get; set; }
 
+
         [Required]
         public byte Category { get; set; }
         public IEnumerable<Category> Categories { get; set; }
+
+        public string Heading { get; set; }
+        public string Action
+        {
+            get { return (Id != 0) ? "Update" : "Create"; }
+        }
 
         public DateTime GetDateTime()
         {

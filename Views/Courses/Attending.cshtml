@@ -9,7 +9,7 @@
 <ul class="course">
     @foreach (var course in Model.UpcommingCourses)
     {
-        <li>
+        <li id="@course.Id">
             <div class="date">
                 <div class="month">
                     @course.DateTime.ToString("MM")
@@ -18,23 +18,36 @@
                     @course.DateTime.ToString("dd")
                 </div>
             </div>
-            <div class="detail">
+            <div class="details" >
                 <span class="lecturer">
                     @course.Lecturer.name
-                    @if (Model.ShowAction)
-                    {
-                        <button class="btn btn-default" btn-sm js-toggle-follow data-user-id="@course.LecturerId">Follow</button>
-                    }
                 </span>
                 <span class="category">
                     @course.Category.Name
+                    @if (Model.ShowAction)
+                    {
+                        <button  data-course-id="@course.Id" onclick="UnAtten('@course.Id')" class="btn btn-default btn-sm js-toggle-attendance">Huỷ tham gia</button>}
                 </span>
-                @if (Model.ShowAction)
-                {
-                    <button data-course-id="@course.Id" class="btn btn-default" btn-sm js-toggle-attendance>Going?</button>
-                }
-
             </div>
         </li>
     }
 </ul>
+
+<script>
+
+    function UnAtten(idCourse) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("UnAtten", "Courses")',
+            data: { id: idCourse },
+            success: function (data) {
+                console.log("Success");
+                var x = "#" + idCourse;
+                $(x).remove();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log("Error: " + thrownError);
+            }
+        });
+    }
+</script>

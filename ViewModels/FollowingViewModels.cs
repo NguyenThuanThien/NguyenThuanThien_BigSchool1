@@ -6,12 +6,9 @@ using System.Web;
 
 namespace NguyenThuanThien_BigSchool.ViewModels
 {
-    public class CoursesViewModel
+    public class FollowingViewModels
     {
-        public IEnumerable<Course> UpcommingCourses { get; set; }
+        public IEnumerable<ApplicationUser> Followings { get; set; }
         public bool ShowAction { get; set; }
-
-        public IEnumerable<Following> Followings { get; set; }
-        public IEnumerable<Attendance> Attendances { get; set; }
     }
 }
